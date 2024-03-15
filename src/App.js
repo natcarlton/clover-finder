@@ -1,23 +1,28 @@
 import logo from './logo.svg';
 import './App.css';
+import TitleScreen from "./screens/titleScreen/TitleScreen";
+import currentScreenStore from "./stores/currentScreenStore";
+import GameScreen from "./screens/gameScreen/GameScreen";
 
 function App() {
+    const { currentScreen } = currentScreenStore(
+        (state) => (state)
+    )
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        {
+            (() => {
+                switch (currentScreen) {
+                    case 'title':
+                        return <TitleScreen/>
+                    case 'game':
+                        return <GameScreen/>
+                    default:
+                        return <TitleScreen/>
+                }
+            })()
+        }
     </div>
   );
 }
